@@ -1,0 +1,31 @@
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8080:8080
+    depends_on:
+      - main
+      - shop
+      - about
+    networks:
+      - default
+
+  main:
+    build: ./packages/main
+    ports:
+      - 3000:3000
+    container_name: main-app
+
+  about:
+    build: ./packages/about
+    ports:
+      - 3001:3001
+    container_name: about-app
+
+  shop:
+    build: ./packages/shop
+    ports:
+      - 3002:3002
+    container_name: shop-app
